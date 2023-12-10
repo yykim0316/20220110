@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function change(){
+           var y = 0;
+           var x = document.getElementById("binary").value;
+           switch (x){
+           case '0000': y = 0;
+           break;
+               case '0001' : y = 1;
+                   break;
+               case '0010' : y = 2;
+                   break;
+               case '0011' : y = 3;
+                   break;
+               case '0100' : y = 4;
+                   break;
+               case '0101' : y = 5;
+                   break;
+               case '0110' : y = 6;
+                   break;
+               case '0111' : y = 7;
+                   break;
+               case '1000' : y = 8;
+                   break;
+               case '1001' : y = 9;
+                   break;
+               case '1010' : y = 'A';
+                   break;
+               case '1011' : y = 'B';
+                   break;
+               case '1100' : y = 'C';
+                   break;
+               case '1101' : y = 'D';
+                   break;
+               case '1110' : y = 'E';
+                   break;
+               case '1111' : y = 'F';
+                   break;
+               default :
+                   document.getElementById("binary").value = "";
+                   document.getElementById("hexadecimal").value = "";
+                   alert(x + '는 이진수가 아니므로 변환할 수 없습니다.');
+           }
+        if(y != 0)
+            document.getElementById("hexadecimal").value = y;
+                     }
+
+      function pascal(){
+          var input;
+          var inputNumber;
+          var result = "";
+          document.getElementById("answer").innerHTML = "";
+          input = document.getElementById("height").value;
+          inputNumber = parseInt(input);
+
+          if (!isNaN(inputNumber)) {
+              if (inputNumber < 1) {
+                  document.getElementById("height").value = "1";
+                  alert("1 이상의 값을 입력해주세요.");
+                  return;
+              }
+          } else {
+              document.getElementById("height").value = "1";
+              alert("숫자를 입력해주세요.");
+              return;
+          }
+          var row = [1];
+
+          for (let i = 0 ; i < inputNumber; i++) {
+              for (let j = 0; j < row.length; j++) {
+                  result += row[j] + " ";
+              }
+              var current_row = new Array(row.length + 1);
+              current_row[0] = row[0];
+
+              for (let i = 0; i < row.length - 1; i++) {
+                  current_row[i + 1] = row[i] + row[i + 1];
+              }
+              current_row[row.length] = row[row.length - 1];
+              row = current_row;
+              result += "<br>";
+          }
+          document.getElementById("answer").innerHTML = result;
+                     }
+
+</script>
+</head>
+<body>
+<div class="container mt-5">
+    <h3>2진수 변환기</h3>
+<div class="mb-3">
+    <label class="form-label text-primary">2 진수 :
+    <input type="text" id="binary" size="20"></label>
+    <button type="button" class="btn btn-dark" onclick="change()">===></button>
+    <label class="form-label text-primary">16 진수
+    <input type="text" id="hexadecimal" size="20"></label>
+</div>
+    <hr>
+    <div class="h3">파스칼 삼각형</div>
+    <div class="mb-3">
+        <label class="form-label text-primary">삼각형 높이
+        <input type="number" id="height" min="1" max="20" step="1" value="1"></label>
+        <button type="button" class="btn btn-success" onclick="pascal()">그리기</button>
+    </div>
+    <div class="text-bg-secondary" id="answer"></div>
+</div>
+
+</body>
+</html>
